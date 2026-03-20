@@ -134,18 +134,16 @@ def iterate_pagerank(corpus, damping_factor):
         for page in corpus:
 
             the_other_factor = 0
-            for the_other in corpus:
-                if the_other == page:
+            for the_other in corpus:                
+                if len(corpus[the_other]) == 0: 
+                    # handle page has no links at all. treat it as having links to all pages
+                    the_other_pr = page_rank[the_other]
+                    the_other_num_links = len(corpus)
+                    the_other_factor += the_other_pr / the_other_num_links
+                    continue                
+                elif page not in corpus[the_other]:  # doen't have link to this page
                     continue
-                if page not in corpus[the_other]:  # doen't have link to this page
-                    if len(corpus[the_other]) == 0: 
-                        # handle page has no links at all. treat it as having links to all pages
-                        the_other_pr = page_rank[the_other]
-                        the_other_num_links = len(corpus)
-                        the_other_factor += the_other_pr / the_other_num_links
-                        continue
-                    else:
-                        continue            
+
                 the_other_pr = page_rank[the_other]
                 the_other_num_links = len(corpus[the_other])
                 the_other_factor += the_other_pr / the_other_num_links
