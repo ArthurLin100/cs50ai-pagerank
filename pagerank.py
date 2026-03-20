@@ -80,8 +80,6 @@ def transition_model(corpus, page, damping_factor):
     return proba_distri
 
 
-
-
 def sample_pagerank(corpus, damping_factor, n):
     """
     Return PageRank values for each page by sampling `n` pages
@@ -106,7 +104,7 @@ def sample_pagerank(corpus, damping_factor, n):
         samples[page] = samples.get(page, 0) + 1    
 
     total = sum(samples.values())
-    samples_rank = {k : v/total for k, v in samples.items()}  # normalization
+    samples_rank = {k: v/total for k, v in samples.items()}  # normalization
     return samples_rank
 
 
@@ -121,7 +119,7 @@ def iterate_pagerank(corpus, damping_factor):
     """
 
     # init variables
-    page_rank = {k : 1/len(corpus) for k in corpus}    
+    page_rank = {k: 1/len(corpus) for k in corpus}    
     damping_pr = (1 - damping_factor) / len(corpus)
 
     # pick one start
@@ -130,7 +128,7 @@ def iterate_pagerank(corpus, damping_factor):
     while True:
         
         current_page_rank = copy.deepcopy(page_rank)
-        #loop through all pages in corpus
+        # loop through all pages in corpus
         for page in corpus:
 
             the_other_factor = 0
@@ -155,7 +153,7 @@ def iterate_pagerank(corpus, damping_factor):
             abs(current_page_rank[p] - page_rank[p])
             for p in page_rank
         )
-        if diff <= 0.001 :
+        if diff <= 0.001:
             break
         # update the new set of page ranks
         page_rank = copy.deepcopy(current_page_rank) 
