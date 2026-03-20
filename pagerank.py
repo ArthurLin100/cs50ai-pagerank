@@ -98,7 +98,7 @@ def sample_pagerank(corpus, damping_factor, n):
     page = random.choice(list(corpus.keys()))
     samples[page] = samples.get(page, 0) + 1
 
-    for i in range(n):
+    for i in range(n - 1):
         probability_distri = transition_model(corpus, page, damping_factor)
         item = list(probability_distri.keys())
         weights = list(probability_distri.values())
